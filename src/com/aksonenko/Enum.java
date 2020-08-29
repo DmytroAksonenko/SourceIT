@@ -4,54 +4,49 @@ import java.util.Scanner;
 
 public class Enum {
 	
-	public enum Priority{
-			
-			HIGH,
-			MEDIUM,
-			LOW;	
+	public enum Priority {
 		
-		//WTF?
+		HIGH, MEDIUM, LOW;
 		
-		//private String typePriority;
-		
-		//public Priority getPriority(String typePriority) {
-		//	this.typePriority = typePriority;
-		//}
-		//public String getTypePriority() {
-		//	return this.typePriority;
-		//}
 	}
-
 	
-	Priority priority;
-
+	public enum MessageType{
+		
+		A(Priority.HIGH), B(Priority.MEDIUM), C(Priority.LOW), D(Priority.LOW);	
+		
+		private Priority priority;
+		
+		private MessageType(Priority priority) {
+			this.priority = priority;
+		}
+		
+		public Priority getPriority() {
+			return this.priority;
+		}
+	}
+	
+	
 	public static void main(String[] args) {
 		
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Please enter message type: ‘A’, ‘B’, ‘C’ or ‘D’");
 		String type = sc.next();
+		String index;
 		
-		switch (type) {
-	        case "A":
-	        	//getPriority();
-	        	Priority typeA = Priority.HIGH; 
-	            System.out.println("Priority is: " + typeA); 
-	            break;
-	
-	        case "B":
-	        	Priority typeB = Priority.MEDIUM; 
-	            System.out.println("Priority is: " + typeB); 
-	            break;
-	
-	        case "C":
-	        	Priority typeC = Priority.LOW; 
-	            System.out.println("Priority is: " + typeC); 
-	            break;
-	            
-	        case "D":
-	        	Priority typeD = Priority.LOW; 
-	            System.out.println("Priority is: " + typeD); 
+		if(type.contains("A") || type.contains("B") || type.contains("C") || type.contains("D")) {
+			index = "1";
+		}	
+		else if(type.contains("a") || type.contains("b") || type.contains("c") || type.contains("d")) {
+			index = "1";
+		}
+		else
+			index = "0";
+			
+		switch (index) {
+	        case "1":
+	        	MessageType messageType = MessageType.valueOf(type.toUpperCase());
+				System.out.println("Priority is: " + messageType.getPriority()); 
 	            break;
 	
 	        default:
