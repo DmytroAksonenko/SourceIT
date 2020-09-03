@@ -1,4 +1,4 @@
-package com.aksonenko;
+package com.aksonenko.oop;
 
 import java.util.ArrayList;
 
