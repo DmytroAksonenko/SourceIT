@@ -46,19 +46,8 @@ public class NewYearGift {
 			if(sweet != null) {
 			giftSumWeight += sweet.getWeight();
 	
-			} else giftSumWeight += 0;
+			}
 		}
-//		#1
-//		double sumWeight = 0;
-//		for (Sweet sweet : sweets) {
-//			sumWeight += sweet.getWeight();
-//		}
-//		return sumWeight;
-//		#2
-//		return Arrays.stream(sweets)
-//				.mapToDouble(sweet -> getWeight())
-//				.sum();
-//		}
 		return giftSumWeight;
 
 	}
