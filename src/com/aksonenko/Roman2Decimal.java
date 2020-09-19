@@ -3,37 +3,84 @@ package com.aksonenko;
 import java.lang.Character;
 
 public class Roman2Decimal {
-	public static void main(String[] args) {
-		int x = 2;
-		String s = "II";
-		//decimal2Roman(x);
-		roman2Decimal(s);
+	public static int roman2Decimal(String s, String[] romanNumbers, int[] numbers) {
+		int x = 0;
+		int y = 0;
+		int z = 0;
+		String ch;
+		for(int i = 0 ; i < s.length() ; i++) {
+			ch = Character.toString(s.charAt(i));
+			for(int j = 0 ; j < romanNumbers.length ; j++ ) {
+				if(y >= numbers[j] & ch.equals(romanNumbers[j])) {
+					if(z >= numbers[j]) {
+						z = numbers[j];
+						y += numbers[j];
+						x = y;
+					}else {
+						y = y - (z*2) + numbers[j];
+						z = numbers[j];
+						x = y;
+					}													
+				}
+				if(y < numbers[j] & ch.equals(romanNumbers[j])) {
+						z = numbers[j];
+						y = numbers[j] - y;
+						x = y;											
+				}
+				if(y == 0 & ch.equals(romanNumbers[j])) {
+					z = numbers[j];
+					y = numbers[j];
+					x += y;									
+				}			
+			}
+		}
+		return x;	
 	}
 	public static String decimal2Roman(int x) {	
 		String s = "";
-		return s;		
-	}
-	public static int roman2Decimal(String s) {
-		int x = 0;
-		int y = 0;
-		char ch;
-		String[] romanNumbers = {"I","V","X","L","C"};
-		for(int i = 0 ; i < s.length() ; i++) {
-			ch = s.charAt(i);
-			System.out.println(ch);
-			for(int j = 0 ; j < romanNumbers.length; j++) {
-				if(Character.isLetter(ch)) {
-					if(ch == romanNumbers[j].indexOf(0)) y = 1;
-					if(ch == romanNumbers[j].indexOf(1)) y = 5;
-					if(ch == romanNumbers[j].indexOf(2)) y = 10;
-					if(ch == romanNumbers[j].indexOf(3)) y = 50;
-					if(ch == romanNumbers[j].indexOf(4)) y = 100;
-					x = x + y;
-					System.out.println(x);
-				}
+		for( ; x >= 1 ; ) {
+			if(x >= 100) {
+				s = s + "C";
+				x -= 100;
 			}
+			if(x >= 90 & x < 100) {
+				s = s + "XC";
+				x -= 90;
+			}
+			if(x >= 50 & x < 90) {
+				s = s + "L";
+				x -= 50;
+			}
+			if(x >= 40 & x < 50) {
+				s = s + "XL";
+				x -= 40;
+			}
+			if(x >= 10 & x < 40) {
+				s = s + "X";
+				x -= 10;
+			}
+			if(x >= 5 & x < 10) {
+				if(x != 9) {
+					s = s + "V";
+					x -= 5;
+				}
+				else {
+					s = s + "IX";
+					x -= 9;
+				}
+				
+			}
+			if(x >= 1 & x < 5) {
+				if (x != 4) {
+					s = s + "I";
+					x -= 1;
+				}
+				else {
+					s = s + "IV";
+					x -= 4;
+				}
+			}		
 		}
-		System.out.println("result: " + x);
-		return x;	
+		return s;		
 	}
 }
