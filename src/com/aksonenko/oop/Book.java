@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class OOP {
+public class Book {
 	/*
 	  5. Book: id, Название, Автор (ы), Издательство, Год издания, Количество стра-
 		ниц, Цена, Тип переплета.
@@ -25,7 +25,7 @@ public class OOP {
 	
 
 	// Book with parameters
-	public OOP(long id, String title, String[] author, String publishing,
+	public Book(long id, String title, String[] author, String publishing,
 			int year, int pages, float price, String cover) { 
 		super();
 		this.id = id; this.title = title; this.author = author; this.publishing = publishing; 
@@ -63,17 +63,17 @@ public class OOP {
 	public static void main(String[] args) {
 		
 		String[] authorDanAbnett = {"Dan Abnett"};
-		OOP first = new OOP(9781844164981L, "Horus Rising", authorDanAbnett, "Black Library",
+		Book first = new Book(9781844164981L, "Horus Rising", authorDanAbnett, "Black Library",
 				2006, 320, 7.97f, "hardcover" );
-		OOP second = new OOP(9781844167760L, "Prospero Burns", authorDanAbnett, "Black Library",
+		Book second = new Book(9781844167760L, "Prospero Burns", authorDanAbnett, "Black Library",
 				2011, 416, 11.58f, "softcover" );
 		
 		String[] authorHelgeKautz = {"Helge Kautz"};
-		OOP third = new OOP(9785998507564L, "Yoshiko - Abyss of the Stars", authorHelgeKautz, "EGOSOFT GmbH",
+		Book third = new Book(9785998507564L, "Yoshiko - Abyss of the Stars", authorHelgeKautz, "EGOSOFT GmbH",
 				2006, 284, 6.59f, "softcover" );
-		OOP forth = new OOP(9783833210419L, "Nopileos", authorHelgeKautz, "EGOSOFT GmbH",
+		Book forth = new Book(9783833210419L, "Nopileos", authorHelgeKautz, "EGOSOFT GmbH",
 				2004, 387, 4.99f, "softcover" );
-		OOP[] books = {first, second, third, forth};
+		Book[] books = {first, second, third, forth};
 		
 		count = 0;
 		System.out.println("Sort by author: \n\n" + booksByAuthor("Dan Abnett", books));
@@ -83,9 +83,9 @@ public class OOP {
 		System.out.println("Released after the specified year: \n\n" + booksAfterYear(2005, books));
 		
 	}
-	public static List<OOP> booksByAuthor(String author, OOP[] books){
-		List<OOP> result = new ArrayList<>();
-		for(OOP book: books) {
+	public static List<Book> booksByAuthor(String author, Book[] books){
+		List<Book> result = new ArrayList<>();
+		for(Book book: books) {
 			for (String authorBook : book.getAuthor()){
 				if(author.equals(authorBook)) {
 					result.add(book);
@@ -95,9 +95,9 @@ public class OOP {
 		
 		return result;
 	}
-	public static List<OOP> booksByPublisher(String publishing, OOP[] books){
-		List<OOP> result = new ArrayList<>();
-		for(OOP book: books) {
+	public static List<Book> booksByPublisher(String publishing, Book[] books){
+		List<Book> result = new ArrayList<>();
+		for(Book book: books) {
 			if(publishing.equals(book.getPublisher())) {
 				result.add(book);
 			}
@@ -105,9 +105,9 @@ public class OOP {
 		
 		return result;
 	}
-	public static List<OOP> booksAfterYear(int year, OOP[] books){
-		List<OOP> result = new ArrayList<>();
-		for(OOP book: books) {
+	public static List<Book> booksAfterYear(int year, Book[] books){
+		List<Book> result = new ArrayList<>();
+		for(Book book: books) {
 			if(year <= book.getYear()) {
 				result.add(book);
 			}
