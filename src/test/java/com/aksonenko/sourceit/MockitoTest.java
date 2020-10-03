@@ -1,4 +1,4 @@
-package test.java.com.aksonenko.sourceit;
+package com.aksonenko.secondsourceit;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -20,6 +20,12 @@ import com.aksonenko.mockito.TemplateEngine;
 @RunWith(MockitoJUnitRunner.class)
 public class MockitoTest {
 
+	Client client = new Client();
+	Template template = new Template();
+	Email email = new Email();
+	String msgContent = "test";
+	String emailAddress = "test@email.com";
+	
 	@Mock
 	private TemplateEngine mockTemplateEngine;
 	
@@ -31,22 +37,13 @@ public class MockitoTest {
 	
 	@Captor
 	private ArgumentCaptor<Email> argumentCaptor;
-	
-	@Test(expected = NullPointerException.class)
-	public void sendMessageTest() {		
-		Client client = new Client();
-		Template template = new Template();
-		Email mockEmail = new Email();
-		String mockPrepareMessage = "Message";
-		Object email = new Object();
-		Mockito.doReturn(mockPrepareMessage)
-	       .when(mockTemplateEngine)
-	       .prepareMessage(template, client);
-		mockEmail.setContent(mockPrepareMessage);
-		mockEmail.setAddressee(email);
-//		mockEmail.setAddressee(client.getEmail());
+
+	@Test 
+	public void sendMessageTest()  {
+
+		testInstance.sendMessage(client, template);
 		Mockito.verify(mockMailServer).send(argumentCaptor.capture());
-		Email argumentCaptorValue = argumentCaptor.getValue();
-		Assert.assertEquals(argumentCaptorValue, testInstance.sendMessage(client, template));
+		Assert.assertEquals("test@email.com", argumentCaptor.getValue().getAddressee(emailAddress));
+
     }
 }
