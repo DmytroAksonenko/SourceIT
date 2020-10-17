@@ -1,4 +1,4 @@
-package com.aksonenko.secondsourceit;
+package test.java.com.aksonenko.sourceit;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -32,6 +32,12 @@ public class MockitoTest {
 	@Mock
 	private MailServer mockMailServer;
 	
+	@Mock
+	private Client mockClient;
+	
+	@Mock
+	private Template mockTemplate;
+	
 	@InjectMocks
 	private Messenger testInstance;
 	
@@ -40,10 +46,21 @@ public class MockitoTest {
 
 	@Test 
 	public void sendMessageTest()  {
-
-		testInstance.sendMessage(client, template);
+		Mockito.when(mockClient.getEmail()).thenReturn(emailAddress);
+		Mockito.when(mockTemplateEngine.prepareMessage(mockTemplate, mockClient)).thenReturn(msgContent);
+		testInstance.sendMessage(mockClient, mockTemplate);	
 		Mockito.verify(mockMailServer).send(argumentCaptor.capture());
-		Assert.assertEquals("test@email.com", argumentCaptor.getValue().getAddressee(emailAddress));
-
+		Assert.assertEquals("test@email.com", argumentCaptor.getValue().getAddressee());
+		Assert.assertNotEquals("false@email.com", argumentCaptor.getValue().getAddressee());
+    }
+	
+	@Test 
+	public void sendMessageTest2()  {
+		Mockito.when(mockClient.getEmail()).thenReturn(emailAddress);
+		Mockito.when(mockTemplateEngine.prepareMessage(mockTemplate, mockClient)).thenReturn(msgContent);
+		testInstance.sendMessage(mockClient, mockTemplate);	
+		Mockito.verify(mockMailServer).send(argumentCaptor.capture());
+		Assert.assertEquals("test", argumentCaptor.getValue().getContent());
+		Assert.assertNotEquals("false test", argumentCaptor.getValue().getContent());
     }
 }

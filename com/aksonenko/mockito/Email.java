@@ -8,15 +8,15 @@ public class Email {
 	public void setContent(String msgContent) {
 		this.msgContent = msgContent;
 	}
-	public String getContent(String msgContent) {
-		return msgContent;
+	public String getContent() {
+		return this.msgContent;
 	}
 
 	public void setAddressee(String emailAddress) {
 		this.emailAddress = emailAddress;
 	}
-	public String getAddressee(String emailAddress) {
-		return emailAddress;
+	public String getAddressee() {
+		return this.emailAddress;
 	}
 
 }
