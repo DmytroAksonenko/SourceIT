@@ -10,8 +10,8 @@ package com.aksonenko.concurrent;
 
 public class ThreadCounters implements Runnable {
 	
-	int counterA = 0;
-	int counterB = 0;
+	static int counterA = 0;
+	static int counterB = 0;
 
 	ThreadCounters() {
 
@@ -20,7 +20,7 @@ public class ThreadCounters implements Runnable {
 	@Override
 	public void run() {	
 		System.out.println(Thread.currentThread().getName() + " started");
-		for (int i = 0 ; i < 1000 ; i++) {			
+		for (int i = 0 ; i < 500 ; i++) {			
 			try {
 				System.out.println(Thread.currentThread().getName() +
 						" counter A: " + counterA + ", counter B: " + counterB);
