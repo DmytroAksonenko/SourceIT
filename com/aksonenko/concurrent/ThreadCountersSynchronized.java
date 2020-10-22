@@ -10,29 +10,37 @@ package com.aksonenko.concurrent;
 
 public class ThreadCountersSynchronized implements Runnable {
 	
-	int counterA = 0;
-	int counterB = 0;
+	static int counterA = 0;
+	static int counterB = 0;
+	Object obj = new Object();
 
 	ThreadCountersSynchronized() {
 
 	}
 	
+	synchronized static void threadRunMethod() {
+		
+	}
+
 	@Override
-	public synchronized void run() {	
-		System.out.println(Thread.currentThread().getName() + " started");
-		for (int i = 0 ; i < 1000 ; i++) {			
-			try {
-				System.out.println(Thread.currentThread().getName() +
-						" counter A: " + counterA + ", counter B: " + counterB);
-				counterA ++;
-				System.out.println(Thread.currentThread().getName() +
-						" counter A: " + counterA + ", counter B: " + counterB);
-				Thread.sleep(10);
-				counterB ++;
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+	public void run() {
+		synchronized (obj) {
+			System.out.println(Thread.currentThread().getName() + " started");
+			for (int i = 0 ; i < 500 ; i++) {			
+				try {
+					System.out.println(Thread.currentThread().getName() +
+							" counter A: " + counterA + ", counter B: " + counterB);
+					counterA ++;
+					System.out.println(Thread.currentThread().getName() +
+							" counter A: " + counterA + ", counter B: " + counterB);
+					Thread.sleep(10);
+					counterB ++;
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
-		}	
+		}
+			
 	}
 	
 	public static void main(String[] args) {
